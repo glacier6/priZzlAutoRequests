@@ -1,0 +1,52 @@
+# 获取句柄、切换标签页
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+import time
+
+
+# 设置浏览器、启动浏览器
+def she():
+    q1 = Options()
+    q1.add_argument("--no-sandbox")
+    q1.add_experimental_option("detach", True)
+    a1 = webdriver.Chrome(service=Service(r'chromedriver.exe'), options=q1)
+    a1.implicitly_wait(30)
+    return a1
+
+
+a1 = she()
+a1.get('https://bahuyun.com/bdp/form/1327923698319491072')
+
+for x in range(3):
+
+    time.sleep(2)
+    a1.find_element(By.XPATH, '//*[@id="my-node"]/div[2]/div/div[2]/div/div/div[3]').click()
+    a1.find_element(By.XPATH, '//*[@id="my-node"]/div[3]/div/div[2]/div/div/div[1]').click()
+    a1.find_element(By.XPATH, '//*[@id="my-node"]/div[3]/div/div[2]/div/div/div[2]').click()
+    a1.find_element(By.XPATH, '//*[@id="my-node"]/div[3]/div/div[2]/div/div/div[3]').click()
+    a1.find_element(By.XPATH, '//*[@id="my-node"]/div[4]/div/div[2]/div/div/div/select/option[2]').click()
+    a1.find_element(By.XPATH, '//*[@id="input-cG2LA_WGt0D0ic623V7ua"]').send_keys('0020251212')
+    a1.find_element(By.XPATH, '//*[@id="my-node"]/div[6]/div/div[2]/div/div[1]/div[2]/div[5]/i').click()
+    a1.find_element(By.XPATH, '//*[@id="my-node"]/div[6]/div/div[2]/div/div[2]/div[2]/div[5]/i').click()
+    a1.find_element(By.XPATH, '//*[@id="my-node"]/div[7]/div/div[2]/div/div/div/div/div/input').send_keys(r'D:\xue1\Selenium\logo2.png')
+
+    time.sleep(2)
+    a1.find_element(By.XPATH, '//*[@id="submit-button"]').click()
+    time.sleep(2)
+    a1.find_element(By.XPATH, '//*[@id="app"]/div/div/div[1]/div[2]/div[3]/button').click()
+
+    time.sleep(2)
+    # 获取全部标签页句柄
+    a2 = a1.window_handles
+    print(a2)
+    # 关闭之前标签页
+    a1.close()
+    # 通过句柄切换标签页
+    a1.switch_to.window(a2[1])
+    # 获取当前标签页句柄
+    a2 = a1.current_window_handle
+    print(f'当前控制标签页的句柄：{a2}')
+
