@@ -15,7 +15,8 @@ import time
 import threading
 import socket
 
-def creatOneNomalChrom(x,y,ipPort,openUrl = 'https://bahuyun.com/bdp/form/1327923698319491072'):
+# 普通方式调用，即自己直接打开一个，不设置用户目录
+def creatOneNomalChrom(x,y,ipPort,openUrl=r'https://www.bilibili.com/'):
     op = Options()
     op.add_argument("--no-sandbox")
     op.add_experimental_option("detach", True)
@@ -26,6 +27,7 @@ def creatOneNomalChrom(x,y,ipPort,openUrl = 'https://bahuyun.com/bdp/form/132792
     chromW.get(openUrl)
     return chromW
 
+# 判断端口是否正在被监听（用于判断chrome是否已经启动）
 def is_port_listening(port, host="localhost", timeout=1):
     """检查指定端口是否已被监听（判断 Chrome 是否启动就绪）"""
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -37,7 +39,7 @@ def is_port_listening(port, host="localhost", timeout=1):
     except (ConnectionRefusedError, TimeoutError):
         return False  # 端口未监听（Chrome 未就绪）
     
-chrome_drivers = []  # 或用字典：{7360: driver1, 7361: driver2, ...}
+chrome_drivers = []
 
 # 第一步：以 “远程调试模式” 启动 Chrome
 #   需先关闭所有已打开的 Chrome 窗口（避免端口冲突），再通过命令行启动 Chrome，并指定调试端口（如9222，可自定义未被占用的端口）。
@@ -87,7 +89,7 @@ def connectOneChrom(port):
     return driver
 
 
-
+# 先用CMD创建一个可监听的chrome，然后再连接进行操作
 def creatOneMyChrom(
     port=9222, 
     positionX=0, 
@@ -105,7 +107,7 @@ def creatOneMyChrom(
     cmd = (
         f'cd "C:\\Program Files\\Google\\Chrome\\Application" '
         f'& chrome.exe --remote-debugging-port={port} --user-data-dir="{unique_user_dir}"'
-        # NOTE:注意同时启动多个窗口时，dir目录必须不同，否则操作的都只会是一个
+        # NOTE:注意同时启动多个窗口时，dir目录必须不同，否则操作的都只会是一个，所以，如果想用同一个用户的界面，需要先复制多个相同的用户目录
     )
     
     # 2. 启动 Chrome（异步，不阻塞）
@@ -131,3 +133,35 @@ def creatOneMyChrom(
     # 4. 将驱动添加到全局列表（后续可通过列表操作多个实例）
     chrome_drivers.append({"port": port, "driver": driver})
     return driver
+
+
+# 一个实际的运行实例
+class RunCase:
+    def __init__(
+        self,    
+        port=7360, 
+        positionX=0, 
+        positionY=0, 
+        sizeX=800, 
+        sizeY=600, 
+        maxWaitTime=30, 
+        userDataDir=r'E:\seleniumUserDate\zzlUser', 
+        openUrl=r'https://www.bilibili.com/'):
+        self.port = port
+        self.positionX = positionX
+        self.positionY = positionY
+        self.sizeX = sizeX
+        self.sizeY = sizeY
+        self.maxWaitTime = maxWaitTime
+        self.userDataDir = userDataDir
+        self.openUrl = openUrl
+        self.driver = creatOneMyChrom(    
+            port=port, 
+            positionX=positionX, 
+            positionY=positionY, 
+            sizeX=sizeX, 
+            sizeY=sizeY, 
+            maxWaitTime=maxWaitTime, 
+            userDataDir=userDataDir, 
+            openUrl=openUrl
+        )
