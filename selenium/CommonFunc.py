@@ -84,6 +84,7 @@ def connectOneChrom(port):
     
     # 连接 Chrome 并返回驱动
     service = Service(driver_path)
+    chrome_options.set_capability('pageLoadStrategy', 'eager')
     driver = webdriver.Chrome(service=service, options=chrome_options)
     print(f"成功连接 {port} 端口的 Chrome")
     return driver
@@ -142,9 +143,9 @@ class RunCase:
         port=7360, 
         positionX=0, 
         positionY=0, 
-        sizeX=800, 
-        sizeY=600, 
-        maxWaitTime=30, 
+        sizeX=700, 
+        sizeY=1300, 
+        maxWaitTime=120, 
         userDataDir=r'E:\seleniumUserDate\zzlUser', 
         openUrl=r'https://www.bilibili.com/'):
         self.port = port
@@ -165,3 +166,23 @@ class RunCase:
             userDataDir=userDataDir, 
             openUrl=openUrl
         )
+
+
+
+# 一个实际的运行实例
+class Person:
+    def __init__(
+        self,    
+        name, 
+        IDCard,
+        phone,
+        province,
+        city,
+        county,
+        hall,
+        appointmentNum=20,
+        ):
+        self.name = name
+        self.IDCard = IDCard
+        self.phone = phone
+        self.appointmentNum = appointmentNum
