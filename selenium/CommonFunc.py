@@ -180,9 +180,15 @@ class Person:
         city,
         county,
         hall,
+        time,
         appointmentNum=20,
         ):
         self.name = name
         self.IDCard = IDCard
         self.phone = phone
         self.appointmentNum = appointmentNum
+        self.province = province
+        self.city = city
+        self.county = county
+        self.hall = hall
+        self.time = time
