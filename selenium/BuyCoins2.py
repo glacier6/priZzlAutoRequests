@@ -47,6 +47,7 @@ def coinsRunFunc(person, port=7360, positionX=0, positionY=0, maxWaitTime=180):
         nowDriver.find_element(By.XPATH, "//div[@class='el-form-item__content']/span[contains(., '按关键字查询')]").is_displayed()
         nowDriver.find_element(By.XPATH, "//div/span[@class='keyWordQuery']").click()
         print("改为按关键字查询")
+        # 注意更改之后会把除了预约数量以外的 兑换信息 均清空（包括兑换时间，所以兑换时间应该在最后再选择）
     except :
         # 4. 捕获“元素不存在”异常，返回 False
         print("已经是按关键字查询")
