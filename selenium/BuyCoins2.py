@@ -16,7 +16,7 @@ import threading
 openUrl = r'https://static.jnb.icbc.com.cn/ICBC/ICBCCOIN/roccentryPC.html'
 # openUrl = r'https://element.eleme.cn/#/zh-CN/component/select'
 
-# 注意要操作的元素必须在界面上，需要滚动才显示的不会点击到！！所以最好缩小到50%（或者更低）
+# 注意要操作的元素必须在界面上，需要滚动才显示的不会点击到！！所以最好缩小到50%（或者更低），但各个浏览器之间是可以堆叠的！
 # 而且有些点击的元素他不能立马再去操作（如下拉列表），因为如下拉会有消失时间，可能会有层级问题，所以在下面加了个0.1的等待时间
 # 注意这个里面不会默认有self（就算是加给了某个对象）
 def coinsRunFunc(person, port=7360, positionX=0, positionY=0, maxWaitTime=180):
