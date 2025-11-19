@@ -182,6 +182,7 @@ class Person:
         hall,
         time,
         appointmentNum=20,
+        serchKey="克拉玛依"
         ):
         self.name = name
         self.IDCard = IDCard
@@ -192,3 +193,4 @@ class Person:
         self.county = county
         self.hall = hall
         self.time = time
+        self.serchKey = serchKey

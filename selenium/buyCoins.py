@@ -10,6 +10,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 import time
 import threading
 
+# NOTE:下面的是按照选省份操作的，已经过测试！
+
 # openUrl = r'file:///C:/Users/11367/Desktop/%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BD%AF%E4%BB%B6/priZzlAutoRequests/%E6%B5%8B%E8%AF%95%E7%95%8C%E9%9D%A2/%E9%A2%84%E7%BA%A6%E6%B5%8B%E8%AF%95/%E7%BA%AA%E5%BF%B5%E5%B8%81%E9%A2%84%E7%BA%A6%E5%B7%A5%E5%95%86.html'
 openUrl = r'https://static.jnb.icbc.com.cn/ICBC/ICBCCOIN/roccentryPC.html'
 # openUrl = r'https://element.eleme.cn/#/zh-CN/component/select'
@@ -46,7 +48,7 @@ def coinsRunFunc(person, port=7360, positionX=0, positionY=0, maxWaitTime=180):
 
     # nowDriver.find_element(By.XPATH, f'/html/body/section/section/main/section/main/div/div[1]/div/div[1]/form/div[8]/div/div[1]/div/div/div[2]/div[1]/div[1]/ul/li[11]').click()
     
-    # 请选择城市 OK
+    # 请选择城市 OK （选择完会有个请求）
     time.sleep(0.1)
     nowDriver.find_element(By.XPATH, '//input[contains(@placeholder, "请选择城市")]').click()
     time.sleep(0.5)
@@ -58,7 +60,7 @@ def coinsRunFunc(person, port=7360, positionX=0, positionY=0, maxWaitTime=180):
     time.sleep(0.5)
     nowDriver.find_element(By.XPATH, f'//li/span[text()="{person.county}"]').click()
 
-    # 请选择网点 OK
+    # 请选择网点 OK （选择完会有个请求）
     time.sleep(0.1)
     nowDriver.find_element(By.XPATH, '//input[contains(@placeholder, "请选择网点")]').click()
     time.sleep(0.5)
